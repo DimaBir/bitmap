@@ -1,6 +1,6 @@
 # Bitmap Data Structure
 
-This program provides a simple yet efficient implementation for managing a bitmap, a data structure that efficiently represents a set of boolean flags or bits. 
+This is a data structure that efficiently represents a bitmap. Also API implementation for bitmap.
 
 ## Features
 
@@ -14,7 +14,7 @@ This program provides a simple yet efficient implementation for managing a bitma
 
 ## Efficiency
 
-The program enhances efficiency by applying a mask to check bits byte by byte, rather than bit by bit. This approach significantly reduces the number of operations needed to find, set, or clear a bit, especially in large bitmaps.
+The program enhances efficiency by applying a mask to check bits byte by byte, rather than bit by bit.
 
 ### Example of Efficient Bit Checking
 
