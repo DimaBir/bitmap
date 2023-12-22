@@ -64,7 +64,7 @@ void bitmap_destroy(Bitmap *bitmap) {
 }
 
 // Allocates the smallest free bit in the bitmap
-int bitmap_allocate_udx(Bitmap *bitmap) {
+int bitmap_allocate_idx(Bitmap *bitmap) {
     int bit_id = find_first_zero_bit(bitmap->bits, bitmap->size);
     if (bit_id >= 0) {
         set_bit(bitmap->bits, bit_id);
@@ -80,7 +80,7 @@ void bitmap_free(Bitmap *bitmap, int bit_id) {
 }
 
 int main() {
-    size_t bitmap_size = 32; // Example size for the bitmap
+    size_t bitmap_size = 33; // Example size for the bitmap
     Bitmap *bitmap = bitmap_init(bitmap_size);
 
     if (!bitmap) {
@@ -91,7 +91,7 @@ int main() {
     // Test allocation and deallocation of bits
     printf("Allocating and freeing bits...\n");
     for (int i = 0; i < bitmap_size; ++i) {
-        int bit_id = bitmap_allocate_udx(bitmap);
+        int bit_id = bitmap_allocate_idx(bitmap);
         if (bit_id == -1) {
             printf("No free bit available.\n");
             break;
@@ -99,8 +99,11 @@ int main() {
             printf("Allocated bit %d\n", bit_id);
         }
 
-        bitmap_free(bitmap, bit_id);
-        printf("Freed bit %d\n", bit_id);
+        // Every 10th bit free 5th bit to tests if minimum updates to 5th bit
+        if(i > 0 && i % 10 == 0){
+            bitmap_free(bitmap, 5);
+            printf("Freed bit %d\n", 5);
+        }
     }
 
     bitmap_destroy(bitmap);
